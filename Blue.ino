@@ -3,12 +3,11 @@
 BluetoothSerial SerialBT;
 
 // Define GPIO pins for LEDs
-const int ledPin1 = 5;  // GPIO 5 for LED 1
-const int ledPin2 = 7;  // GPIO 4 for LED 2
-const int ledPin3 = 8; // GPIO 13 for LED 3
-const int analogPin = 34; // GPIO 34 for analog input (thermistor/potentiometer)
+const int ledPin1 = 5;  
+const int ledPin2 = 7;  
+const int ledPin3 = 8; 
+const int analogPin = 34; 
 
-// Variable for simulated temperature
 float temperature = 0.0;
 String ledStatus = "";
 String condition = "";
@@ -54,10 +53,8 @@ void updateLEDs(float temp) {
 }
 
 void setup() {
-  // Initialize Serial Monitor
   Serial.begin(115200);
 
-  // Initialize GPIO pins for LEDs
   pinMode(ledPin1, OUTPUT);
   pinMode(ledPin2, OUTPUT);
   pinMode(ledPin3, OUTPUT);
@@ -70,17 +67,11 @@ void setup() {
 void loop() {
   // Read temperature
   temperature = readTemperature();
-
-  // Update LEDs based on temperature
   updateLEDs(temperature);
 
   // Prepare data string
   String data = "Temperature: " + String(temperature, 1) + "C, " + ledStatus + "              " + condition;
-
-  // Send data over Bluetooth
   SerialBT.println(data); 
-
-  // Debugging: print data to Serial Monitor
   Serial.println(data);
 
   delay(100); 
